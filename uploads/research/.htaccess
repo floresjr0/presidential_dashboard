@@ -1,0 +1,4 @@
+# Allow only document downloads
+<FilesMatch "\.(php|phtml|php3|php4|php5|phps|cgi|pl|py|asp|aspx|jsp|sh)$">
+    Require all denied
+</FilesMatch>
