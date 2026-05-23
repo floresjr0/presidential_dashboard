@@ -3,15 +3,16 @@ require_once __DIR__ . '/../../config/app.php';
 requireRole(['president','admin']);
 require_once __DIR__ . '/../../includes/nav.php';
 
-$campusFilter = isset($_GET['campus']) ? (int)$_GET['campus'] : null;
-$ayFilter = isset($_GET['ay']) ? (int)$_GET['ay'] : null;
-$stats = getDashboardStats($campusFilter, $ayFilter);
-$campuses = getCampuses();
-$academicYears = getAcademicYears();
+$campusFilter   = isset($_GET['campus']) ? (int)$_GET['campus'] : null;
+$ayFilter       = isset($_GET['ay'])     ? (int)$_GET['ay']     : null;
+$stats          = getDashboardStats($campusFilter, $ayFilter);
+$campuses       = getCampuses();
+$academicYears  = getAcademicYears();
 
-$pageTitle = 'Executive Dashboard';
+$pageTitle  = 'Executive Dashboard';
+$pageCSS    = 'modules/president/index.css';
 $sidebarNav = presidentNav();
-$user = currentUser();
+$user       = currentUser();
 
 require __DIR__ . '/../../includes/layout.php';
 require __DIR__ . '/../../includes/stats_cards.php';
@@ -38,7 +39,7 @@ require __DIR__ . '/../../includes/stats_cards.php';
     </div>
 </div>
 
-<div class="grid-2">
+<div class="charts-grid">
     <div class="card">
         <div class="card-header">Gender Distribution — Students</div>
         <div class="card-body"><div class="chart-container"><canvas id="chartGenderStudents"></canvas></div></div>
@@ -61,10 +62,22 @@ require __DIR__ . '/../../includes/stats_cards.php';
     <div class="card-header">Campus Population Summary</div>
     <div class="card-body table-wrap">
         <table>
-            <thead><tr><th>Campus</th><th>Code</th><th>Students</th><th>Employees</th></tr></thead>
+            <thead>
+                <tr>
+                    <th>Campus</th>
+                    <th>Code</th>
+                    <th>Students</th>
+                    <th>Employees</th>
+                </tr>
+            </thead>
             <tbody>
             <?php foreach ($stats['by_campus'] as $c): ?>
-            <tr><td><?= e($c['name']) ?></td><td><?= e($c['code']) ?></td><td><?= number_format($c['students']) ?></td><td><?= number_format($c['employees']) ?></td></tr>
+            <tr>
+                <td><span class="campus-name"><?= e($c['name']) ?></span></td>
+                <td><span class="campus-code"><?= e($c['code']) ?></span></td>
+                <td><span class="campus-count"><?= number_format($c['students']) ?></span></td>
+                <td><span class="campus-count"><?= number_format($c['employees']) ?></span></td>
+            </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
@@ -73,10 +86,22 @@ require __DIR__ . '/../../includes/stats_cards.php';
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    initChart('chartGenderStudents', 'doughnut', ['Male','Female','Other'], [<?= $stats['male_students'] ?>, <?= $stats['female_students'] ?>, <?= max(0, $stats['students'] - $stats['male_students'] - $stats['female_students']) ?>]);
-    initChart('chartCampus', 'bar', <?= json_encode(array_column($stats['by_campus'], 'code')) ?>, <?= json_encode(array_map('intval', array_column($stats['by_campus'], 'students'))) ?>);
-    initChart('chartStatus', 'pie', ['Enrolled','Graduating','BASCAT','Dropped','Graduated'], [<?= $stats['enrolled'] ?>, <?= $stats['graduating'] ?>, <?= $stats['bascat'] ?>, <?= $stats['dropped'] ?>, <?= $stats['graduated'] ?>]);
-    initChart('chartFinance', 'bar', ['Revenue','Expenses','Budget'], [<?= $stats['revenue'] ?>, <?= $stats['expenses'] ?>, <?= $stats['budget'] ?>], ['#198754','#dc3545','#1e3a5f']);
+    initChart('chartGenderStudents', 'doughnut',
+        ['Male', 'Female', 'Other'],
+        [<?= $stats['male_students'] ?>, <?= $stats['female_students'] ?>, <?= max(0, $stats['students'] - $stats['male_students'] - $stats['female_students']) ?>]
+    );
+    initChart('chartCampus', 'bar',
+        <?= json_encode(array_column($stats['by_campus'], 'code')) ?>,
+        <?= json_encode(array_map('intval', array_column($stats['by_campus'], 'students'))) ?>
+    );
+    initChart('chartStatus', 'pie',
+        ['Enrolled', 'Graduating', 'BASCAT', 'Dropped', 'Graduated'],
+        [<?= $stats['enrolled'] ?>, <?= $stats['graduating'] ?>, <?= $stats['bascat'] ?>, <?= $stats['dropped'] ?>, <?= $stats['graduated'] ?>]
+    );
+    initChart('chartFinance', 'bar',
+        ['Revenue', 'Expenses', 'Budget'],
+        [<?= $stats['revenue'] ?>, <?= $stats['expenses'] ?>, <?= $stats['budget'] ?>]
+    );
 });
 </script>
 <?php require __DIR__ . '/../../includes/layout_end.php'; ?>

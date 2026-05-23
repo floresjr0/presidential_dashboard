@@ -1,0 +1,110 @@
+
+@import url('../admin/index.css');
+
+
+.stat-card .value {
+    font-variant-numeric: tabular-nums;
+}
+
+.stat-card.success .value,
+.stat-card.danger .value {
+    font-size: 1.3rem;
+    letter-spacing: -.3px;
+}
+
+.stat-card .sub {
+    font-size: .69rem;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+
+.badge-permanent {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success-border);
+}
+
+.badge-part-time,
+.badge-part_time {
+    background: var(--warning-bg);
+    color: var(--warning);
+    border: 1px solid var(--warning-border);
+}
+
+.badge-contractual,
+.badge-contract {
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid #c8d8ea;
+}
+
+.badge-active {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success-border);
+}
+
+.badge-inactive {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+}
+
+.badge-on-leave,
+.badge-on_leave {
+    background: var(--warning-bg);
+    color: var(--warning);
+    border: 1px solid var(--warning-border);
+}
+
+.course-code {
+    display: inline-block;
+    padding: 2px 7px;
+    background: var(--primary-light);
+    border: 1px solid #c8d8ea;
+    border-radius: 3px;
+    font-size: .67rem;
+    font-weight: 700;
+    letter-spacing: .4px;
+    color: var(--primary);
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+}
+
+.badge-undergraduate {
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid #c8d8ea;
+}
+
+.badge-graduate {
+    background: var(--accent-light);
+    color: var(--accent);
+    border: 1px solid #e8d49a;
+}
+
+.badge-doctoral {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid var(--success-border);
+}
+
+.employee-name,
+.course-name {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.employee-id {
+    font-size: .78rem;
+    color: var(--text-sub);
+    font-family: 'Courier New', monospace;
+    letter-spacing: .3px;
+}
+
+.department-label {
+    font-size: .78rem;
+    color: var(--text-sub);
+}

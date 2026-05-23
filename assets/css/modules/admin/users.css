@@ -1,0 +1,66 @@
+@import url('./index.css');
+
+
+.badge-role-admin          { background: #f0eafa; color: #5b21b6; border: 1px solid #d8b4fe; }
+.badge-role-president      { background: var(--accent-light); color: var(--accent); border: 1px solid #e8d49a; }
+.badge-role-registrar      { background: var(--primary-light); color: var(--primary); border: 1px solid #c8d8ea; }
+.badge-role-finance        { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+.badge-role-research       { background: #e8f4f8; color: #0e6b8a; border: 1px solid #b4d9e8; }
+.badge-role-hr             { background: #fef3e8; color: #9a4b00; border: 1px solid #f0c89a; }
+.badge-role-department_head{ background: #f0fae8; color: #3a6b1a; border: 1px solid #c0dda0; }
+.badge-role-campus_admin   { background: var(--primary-light); color: var(--primary-mid); border: 1px solid #c8d8ea; }
+.badge-role-guidance       { background: #fce8f4; color: #8a0e5b; border: 1px solid #e8b4d8; }
+.badge-role-mis            { background: #eef0f4; color: var(--text-sub); border: 1px solid var(--border); }
+
+
+.user-name {
+    font-weight: 600;
+    color: var(--text);
+}
+
+.user-username {
+    font-size: .8rem;
+    color: var(--muted);
+    font-family: 'Courier New', monospace;
+}
+
+.user-campus {
+    font-size: .82rem;
+    color: var(--text-sub);
+}
+
+.btn-danger:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
+.modal {
+    max-width: 600px;
+}
+
+.modal .form-row {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+select[name="role"].form-control {
+    font-weight: 500;
+}
+
+
+@media (max-width: 768px) {
+    .modal {
+        max-width: 100%;
+    }
+
+    .modal .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack username + name into a two-liner on small screens */
+    td .user-name,
+    td .user-username {
+        display: block;
+    }
+}

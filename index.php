@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/config/app.php';
+require_once __DIR__ . '/includes/nav.php';
 
 if (isLoggedIn()) {
     redirect(roleDashboardPath($_SESSION['role']));
@@ -28,28 +29,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - <?= e(APP_NAME) ?></title>
-    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/style.css">
+    <link rel="stylesheet" href="<?= APP_URL ?>/assets/css/login.css">
 </head>
 <body class="login-page">
-    <div class="login-card">
-        <div class="login-logo">UD</div>
-        <h1><?= e(APP_NAME) ?></h1>
-        <p class="subtitle">Executive monitoring & institutional data portal</p>
-        <?php if ($error): ?><div class="flash flash-error" style="margin-bottom:16px;border-radius:8px;"><?= e($error) ?></div><?php endif; ?>
-        <form method="POST">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control" required autofocus placeholder="e.g. admin">
+    <div class="login-wrapper">
+
+        <div class="login-panel">
+            <div class="panel-badge">
+                <span class="badge-dot"></span>
+                <?= e(APP_NAME) ?>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
-        </form>
-        <p class="text-muted mt-2" style="font-size:.8rem;text-align:center;margin-top:20px;">
-            First time? <a href="<?= APP_URL ?>/install.php">Run installer</a>
-        </p>
+            <h1 class="panel-title">
+                One dashboard.<br>
+                <span class="panel-title-accent">Full visibility.</span>
+            </h1>
+            <p class="panel-desc">
+                Monitor enrollment, finance, research, and staff across all campuses &mdash; in one place.
+            </p>
+            <ul class="panel-features">
+                <?php foreach (loginPanelFeatures() as $feat): ?>
+                <li class="panel-feat">
+                    <span class="feat-icon"><?= $feat['icon'] ?></span>
+                    <?= htmlspecialchars($feat['label']) ?>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <div class="login-form-area">
+            <div class="login-logo">UD</div>
+            <h2 class="form-heading">Welcome back</h2>
+            <p class="form-subheading">Sign in to access your dashboard</p>
+            <form method="POST" novalidate>
+                <?php if ($error): ?>
+                <div class="flash flash-error"><?= e($error) ?></div>
+                <?php endif; ?>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" required autofocus autocomplete="username" placeholder="e.g. admin">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" required autocomplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+            </form>
+            <p class="text-muted" style="font-size:.8rem;text-align:center;margin-top:18px;">
+                First time? <a href="<?= APP_URL ?>/install.php"><strong>Run installer</strong></a>
+            </p>
+        </div>
+
     </div>
 </body>
 </html>
